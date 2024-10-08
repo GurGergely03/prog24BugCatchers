@@ -14,14 +14,15 @@
     </head>
 
 <body>
+	<script src="imgchange.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-	<script>
+	<script>	
 	// Set up the scene, camera, and renderer
 	const scene = new THREE.Scene(); 
     // Create a perspective camera with a 75 degree field of view, 
     // aspect ratio based on window size, near clipping plane 
     // at 0.1 units, and far clipping plane at 1000 units
-	const camera = new THREE.PerspectiveCamera(85, window.innerWidth / window.innerHeight, 0.1, 1000); 
+	const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); 
 	const renderer = new THREE.WebGLRenderer(); // Create a WebGL renderer
     // Set the renderer size to match the window size
 	renderer.setSize(window.innerWidth, window.innerHeight); 
@@ -56,19 +57,22 @@
     // Add the sphere to the scene
 	scene.add(sphere); 
 	// Set the camera's position along the z-axis to 5 units
+
 	camera.position.z = 5;
 	// Define the animation loop
     // Create a function named animate
 	const animate = function() { 
 		// Request the next animation frame, recursively calling the animate function
 		requestAnimationFrame(animate);
-		// Increment the rotation of the sphere around the y-axis by 0.005 radians
+		// Increment the rotation of the sphere around the y-axis by 0.002 radians
+		sphere.rotation.x = 0.2;
 		sphere.rotation.y += 0.002;
 		// Render the scene using the specified camera and renderer
 		renderer.render(scene, camera);
 	};
 	// Call the animate function to start the animation loop
 	animate();
+	
 	</script>
 </body>
 
