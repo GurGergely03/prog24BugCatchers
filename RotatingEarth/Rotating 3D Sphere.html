@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotating 3D Sphere with Three.js</title>
+  <style>
+    body { margin: 0; } 
+    canvas { display: block; } 
+  </style>
+</head>
+<body>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+ 
+    // fetch('/save-image', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ image: dataURL }),
+    //   headers: { 'Content-Type': 'application/json' }
+    // })
+    // .then(response => response.text())
+    // .then(result => console.log(result))
+    // .catch(error => console.error('Error:', error));
+  
+
+  
+  const scene = new THREE.Scene(); 
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); 
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight); 
+  document.body.appendChild(renderer.domElement); 
+  
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+  scene.add(ambientLight); 
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); 
+  directionalLight.position.set(1, 1, 1).normalize(); 
+  scene.add(directionalLight); 
+
+  const geometry = new THREE.SphereBufferGeometry(1, 64, 64); 
+  const textureLoader = new THREE.TextureLoader();
+  const texture = textureLoader.load('earth.jpg'); 
+  const material = new THREE.MeshPhongMaterial({ map: texture }); 
+
+  const sphere = new THREE.Mesh(geometry, material); 
+  scene.add(sphere); 
+
+  const geometry2 = new THREE.SphereBufferGeometry(2, 64, 64); 
+  const texture2 = textureLoader.load('random.png'); 
+
+  const material2 = new THREE.MeshPhongMaterial({ map: texture2, transparent : true}); 
+  const sphere2 = new THREE.Mesh(geometry2, material2);
+  sphere2.material.side = THREE.DoubleSide;
+
+  scene.add(sphere2)
+  camera.position.z = 5;
+
+  const animate = function() { 
+    requestAnimationFrame(animate);
+	sphere2.rotation.x = 0.2;
+	sphere2.rotation.y += 0.02;
+    sphere.rotation.x = 0.2;
+    sphere.rotation.y += 0.002;
+    renderer.render(scene, camera);
+  };
+
+  animate();
+  </script>
+</body>
+</html>
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotating 3D Sphere with Three.js</title>
+  <style>
+    /* Remove default margin from the body */
+    body { margin: 0; } 
+    /* Make the canvas element block-level */
+    canvas { display: block; } 
+  </style>
+</head>
+
+<body>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+  var img = new Image();
+  img.src = "earth.jpg";
+
+  img.onload = function() {
+    let canvas = document.createElement("canvas"),
+    ctx = canvas.getContext("2d");
+
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    ctx.drawImage(img, 0 ,0, img.naturalWidth, img.naturalHeight);
+
+    // Text settings
+    let txt = "MUKODIIK", x = 30, y = 220;
+    ctx.font = "bold 48px Arial";
+    ctx.fillStyle = "rgb(255,255,255)";
+    ctx.fillText(txt, x, y);
+    
+    // Convert canvas to Data URL in JPEG format
+    let dataURL = canvas.toDataURL("image/jpeg");
+
+    // Send the canvas image data to the server
+    fetch('/save-image', {
+      method: 'POST',
+      body: JSON.stringify({ image: dataURL }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.error('Error:', error));
+  };
+
+  // Set up the scene, camera, and renderer
+  const scene = new THREE.Scene(); 
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); 
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight); 
+  document.body.appendChild(renderer.domElement); 
+  
+  // Create lights
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+  scene.add(ambientLight); 
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); 
+  directionalLight.position.set(1, 1, 1).normalize(); 
+  scene.add(directionalLight); 
+
+  // Create a sphere geometry
+  const geometry = new THREE.SphereBufferGeometry(2, 64, 64); 
+  const textureLoader = new THREE.TextureLoader();
+  const texture = textureLoader.load('earth.jpg'); 
+  const material = new THREE.MeshPhongMaterial({ map: texture }); 
+
+  const sphere = new THREE.Mesh(geometry, material); 
+  scene.add(sphere); 
+  camera.position.z = 5;
+
+  const animate = function() { 
+    requestAnimationFrame(animate);
+    sphere.rotation.x = 0.2;
+    sphere.rotation.y += 0.002;
+    renderer.render(scene, camera);
+  };
+
+  animate();
+  </script>
+</body>
+
+</html> -->
