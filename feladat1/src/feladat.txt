@@ -1,0 +1,8 @@
+-5 pajzs: 1 pajzs max föld felülete * 0.04 (1 914 983 156 420 * 0,04) 
+                                           (76 599 326 256)
+- feladat: -a pajzsok leghatékonyabb elosztása
+           -monitorozni a shield24-75 központi tárhekyét
+           -csillagtérképet létrehozni
+           -megadni az 5 pajzs kezdő pozícióját
+           -csillagtérképen megadni az idegenek becsült helyét,azonosítóját, létszámát
+           -ehhez ↑ igazítani a pajzsot
