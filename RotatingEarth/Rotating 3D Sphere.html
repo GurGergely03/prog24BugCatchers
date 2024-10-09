@@ -37,7 +37,7 @@
   directionalLight.position.set(1, 1, 1).normalize(); 
   scene.add(directionalLight); 
 
-  const geometry = new THREE.SphereBufferGeometry(1, 64, 64); 
+  const geometry = new THREE.SphereBufferGeometry(0.5, 64, 64); 
   const textureLoader = new THREE.TextureLoader();
   const texture = textureLoader.load('earth.jpg'); 
   const material = new THREE.MeshPhongMaterial({ map: texture }); 
@@ -45,20 +45,30 @@
   const sphere = new THREE.Mesh(geometry, material); 
   scene.add(sphere); 
 
+
   const geometry2 = new THREE.SphereBufferGeometry(2, 64, 64); 
-  const texture2 = textureLoader.load('random.png'); 
+  const texture2 = textureLoader.load('shield.png'); 
 
   const material2 = new THREE.MeshPhongMaterial({ map: texture2, transparent : true}); 
   const sphere2 = new THREE.Mesh(geometry2, material2);
-  sphere2.material.side = THREE.DoubleSide;
-
+  sphere2.material.side = THREE.BackSide;
   scene.add(sphere2)
+
+  const geometry3 = new THREE.SphereBufferGeometry(2, 64, 64); 
+  const texture3 = textureLoader.load('shield.png'); 
+  const material3 = new THREE.MeshPhongMaterial({ map: texture2, transparent : true}); 
+  const sphere3 = new THREE.Mesh(geometry3, material3);
+  sphere3.material.side = THREE.FrontSide;
+  scene.add(sphere3)
+
   camera.position.z = 5;
 
   const animate = function() { 
     requestAnimationFrame(animate);
-	sphere2.rotation.x = 0.2;
-	sphere2.rotation.y += 0.02;
+    //sphere3.rotation.x = 0.2;
+	  //sphere3.rotation.y += 0.002;
+	  //sphere2.rotation.x = 0.2;
+	  //sphere2.rotation.y += 0.002;
     sphere.rotation.x = 0.2;
     sphere.rotation.y += 0.002;
     renderer.render(scene, camera);
