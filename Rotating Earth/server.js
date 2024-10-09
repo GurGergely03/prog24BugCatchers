@@ -8,6 +8,10 @@ app.use(express.json({ limit: '10mb' }));
 // Serve static files from the "public" directory
 app.use(express.static('public'));
 
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
 // Endpoint to handle image saving
 app.post('/save-image', (req, res) => {
   const imgData = req.body.image;
@@ -29,5 +33,5 @@ app.post('/save-image', (req, res) => {
 // Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log('Server running on http://localhost:${PORT}');
+  console.log(`Server running on http://localhost:${PORT}`);
 });
